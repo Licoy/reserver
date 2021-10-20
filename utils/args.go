@@ -3,6 +3,7 @@ package utils
 import (
 	"errors"
 	"fmt"
+	"github.com/gookit/color"
 	"github.com/jessevdk/go-flags"
 	"os"
 	"path/filepath"
@@ -22,6 +23,7 @@ type CmdArgs struct {
 	// tips: https://github.com/jessevdk/go-flags/issues/313
 	Ignore    []string `short:"i" long:"ignore" description:"multiple observation paths are allowed to be ignored, ex: -i /a -i /b"`
 	IgnoreMap map[string]struct{}
+	Version   bool `short:"v" long:"version" description:"view current version"`
 }
 
 func ParseCommonArgs() *CmdArgs {
@@ -36,12 +38,21 @@ func ParseCommonArgs() *CmdArgs {
 		}
 		panic(fmt.Sprintf("parsing parameter failed: %v", err))
 	}
+	if args.Version {
+		fmt.Println(color.Green.Sprintf("Reserver version: V%.1f", VERSION))
+	}
 	if args.Root == "" {
 		wd, err := os.Getwd()
 		if err != nil {
 			panic("failed to get runtime directory")
 		}
-		args.Root = wd
+		args.Root = filepath.ToSlash(wd)
+	} else {
+		rootAbs, err := filepath.Abs(args.Root)
+		if err != nil {
+			panic(fmt.Sprintf("failed to resolve the absolute path of the root directory: %v", err))
+		}
+		args.Root = filepath.ToSlash(rootAbs)
 	}
 	args.Root = filepath.ToSlash(args.Root)
 	args.IgnoreMap = make(map[string]struct{})
@@ -51,7 +62,7 @@ func ParseCommonArgs() *CmdArgs {
 			if err != nil {
 				continue
 			}
-			args.IgnoreMap[filepath.ToSlash(abs)] = struct{}{} //:sparkles: 优化关于忽略目录的相对路径支持
+			args.IgnoreMap[filepath.ToSlash(abs)] = struct{}{}
 		}
 	}
 	return args

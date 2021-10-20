@@ -26,5 +26,13 @@ system, how to use it:
   -w, --wait       wait for the specified time before reloading (default: 100ms)
   -i, --ignore     multiple observation paths are allowed to be ignored, ex:
                     -i /a -i /b
+  -v, --version     view current version
   -h, --help        Show this help message
 ```
+
+## :label: Feedback
+- If you encounter problems during use, you can directly submit [issue](https://github.com/Licoy/reserver/issues/new) for discussion or feedback.
+
+
+## :page_facing_up: License
+[MIT](./LICENSE)

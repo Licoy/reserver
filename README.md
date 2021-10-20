@@ -16,7 +16,7 @@
 - 将此应用放置在您的项目的根目录。
 - 将本程序添加至全局，在您的项目中打开终端启动 `reserver [options]` 即可。
 
-## :wrench: 配置 
+## :wrench: 配置
 
 ```text
   -p, --port        监听端口 (默认值: 8080)
@@ -29,5 +29,13 @@
       --hide-log    隐藏观察文件改变的日志
   -w, --wait        在重新加载之前等待指定的时间 (默认值: 100ms)
   -i, --ignore      忽略观察文件改变的路径（允许多个）,例如：-i /a -i /b
+  -v, --version     查看当前版本
   -h, --help        显示帮助信息
 ```
+
+## :label: 反馈
+- 若您在使用过程中遇到问题，可以直接提交 [issue](https://github.com/Licoy/reserver/issues/new) 进行讨论或反馈。
+
+## :page_facing_up: 许可证
+
+[MIT](./LICENSE)
